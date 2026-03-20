@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Official Ceará Greens */
+  --color-emerald-50: #e6f6eb;
+  --color-emerald-100: #ccecd8;
+  --color-emerald-200: #99d9b0;
+  --color-emerald-300: #66c689;
+  --color-emerald-400: #33b361;
+  --color-emerald-500: #00a84a; /* Primary Official Green */
+  --color-emerald-600: #008442; /* Darker Official Branding Green */
+  --color-emerald-700: #006b36;
+  --color-emerald-800: #005028;
+  --color-emerald-900: #00361b;
+
+  /* Official Ceará Orange */
+  --color-orange-50: #fef3eb;
+  --color-orange-100: #fde6d6;
+  --color-orange-200: #fcccad;
+  --color-orange-300: #fab384;
+  --color-orange-400: #f8995b;
+  --color-orange-500: #f0852e; /* Primary Official Orange */
+  --color-orange-600: #d06d1e;
+  --color-orange-700: #a55618;
+  --color-orange-800: #7b4012;
+  --color-orange-900: #552d0d;
+
+  /* Decorative Base Colors */
+  --color-ceara-blue: #56BFC9;
+  --color-ceara-yellow: #FFA000;
+  
+  --color-background: #f8fafc;
+  --color-foreground: #0f172a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar for better UI */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
