@@ -573,13 +573,21 @@ export default function CategorizacaoPage() {
                   <div>
                     <label className="block font-bold text-slate-700 mb-2">Regras Complementares de Compartilhamento</label>
                     <textarea className="w-full p-2.5 border-2 border-slate-200 bg-white rounded-lg focus:border-[#009a4d] focus:ring-4 focus:ring-green-50 transition-all outline-none min-h-[80px]" value={formData.regrasCompartilhamento} onChange={(e) => setFormData({...formData, regrasCompartilhamento: e.target.value})} />
-                    <p className="text-xs text-slate-500 mt-1">Regras adicionais para compartilhamento (opcional se categoria não for Específico)</p>
+                    <p className="text-xs text-slate-500 mt-1">{
+                      formData.categoria !== 'especifico' && (
+                        <span>Regras adicionais para compartilhamento (opcional se categoria não for Específico)</span>
+                      )}
+                      {
+                      formData.categoria === 'especifico' && (
+                        <span>Você categorizou o dado como compartilhamento <strong>específico</strong>. <br/> Preencha quais são as <strong>regras</strong> de acesso a esse dado, esclarecendo quais são os órgãos e entidades que têm direito a acessá-lo.</span>
+                      )
+                    }</p>
                   </div>
                   {formData.categoria === 'especifico' && (
                     <div>
                       <label className="block font-bold text-slate-700 mb-2">Fundamentação para Categorização Específica</label>
                       <textarea className="w-full p-2.5 border-2 border-slate-200 bg-white rounded-lg focus:border-[#009a4d] focus:ring-4 focus:ring-green-50 transition-all outline-none min-h-[80px]" value={formData.fundamentacaoEspecifica} onChange={(e) => setFormData({...formData, fundamentacaoEspecifica: e.target.value})} />
-                      <p className="text-xs text-slate-500 mt-1">Justificativa se o dado foi classificado como Específico quando o Subcomitê definiu como Restrito</p>
+                      <p className="text-xs text-slate-500 mt-1">Já que você categorizou o dado como compartilhamento <strong>específico</strong>, justifique a necessidade de estar nessa categoria.</p>
                     </div>
                   )}
                 </div>
