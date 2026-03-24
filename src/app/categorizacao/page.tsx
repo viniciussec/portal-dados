@@ -295,7 +295,8 @@ export default function CategorizacaoPage() {
                 <h1 className="text-3xl font-extrabold text-slate-800 mb-2 tracking-tight flex items-center gap-3">
                   <span className="sm:hidden text-3xl">📊</span> Ficha de Categorização
                 </h1>
-                <p className="text-slate-500 font-medium">Resolução nº 01/2026 - Estado do Ceará | Versão Digital</p>
+                <p className="text-slate-500 font-medium">Decreto Estadual nº 37.059/2026 e Resolução nº 01/2026 </p>
+                <p className="text-slate-500 font-medium"><b>Subcomitê de Governança de Dados do Governo do Estado do Ceará</b></p>
               </div>
             </div>
           </div>
@@ -304,11 +305,13 @@ export default function CategorizacaoPage() {
             {/* Legal Info */}
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-amber-900 shadow-sm">
               <h3 className="font-bold flex items-center gap-2 mb-3 text-amber-700">
-                <Scale size={20} /> Base Legal
+                <Scale size={20} /> Para que serve essa ficha?
               </h3>
               <ul className="space-y-2 text-sm leading-relaxed">
-                <li><strong>Resolução nº 01/2026, Art. 3.5:</strong> "O gestor de dados deve preencher uma Ficha de Categorização disponibilizada pelo Subcomitê de Governança de Dados"</li>
-                <li><strong>Decreto nº 37.059/2026:</strong> Governança no compartilhamento de dados no âmbito da Administração Pública estadual</li>
+                
+                <li>Essa ficha serve para categorizar dados que podem ser compartilhados com outros órgãos e entidades. Ela deve ser preenchida pelo órgão gestor do dado. Após o preenchimento completo dela, você deve <strong>exportar para PDF</strong> e enviá-la para o <strong>Subcomitê de Governança de Dados</strong>. </li>
+                <li>Resolução nº 01/2026, Art. 3.5 e Decreto nº 37.059/2026.</li>
+                <li><strong>Base legal:</strong> Resolução nº 01/2026, Art. 3.5 e Decreto nº 37.059/2026. </li>
               </ul>
             </div>
 
@@ -355,12 +358,17 @@ export default function CategorizacaoPage() {
             {/* Tipo Informação */}
             <section className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm text-sm">
               <h2 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2 border-b-2 border-slate-100 pb-3">
-                <span className="text-[#009a4d]">📑</span> Tipo de Informação
+                <span className="text-[#009a4d]">📑</span> Escolha o tipo de informação que você está categorizando
               </h2>
               
               <div className="bg-slate-50 border border-slate-200 text-slate-700 p-4 rounded-lg flex items-start gap-3 mb-6">
                 <Info className="flex-shrink-0 mt-0.5 text-slate-500" />
-                <p><strong>Art. 3.2 da Resolução:</strong> O gestor de dados deve categorizar dois tipos de informações específicos.</p>
+                <p>Existem dois tipos de informações previstos na Resolução:
+                  <br /><br />
+                  <strong>Consulta de Registro Único:</strong> Pesquisa que retorna informações sobre um indivíduo ou objeto específico. Exemplos: consultar os dados biográficos de um CPF ou detalhes de um veículo a partir da placa dele.
+                  <br /><br />
+                  <strong>Conjunto de Informações:</strong> Pesquisa baseada em filtros (parâmetros) que retorna uma lista de resultados. Exemplos: lista dos beneficiários do Vale Gás ou lista de veículos com licenciamento atrasado em um município.
+                </p>
               </div>
 
               <div>
@@ -374,12 +382,13 @@ export default function CategorizacaoPage() {
 
               {formData.tipoInfo === "consulta" && (
                 <div className="mt-4 bg-green-50 text-green-800 p-4 rounded-lg border border-green-200">
-                  <strong>Consulta de Registro Único:</strong> Pesquisa que retorna informações sobre um indivíduo ou objeto específico. Requer chave única (ID) e retorna dados correspondentes àquele identificador.
+                  <strong>Consulta de Registro Único:</strong> Pesquisa que retorna informações sobre um indivíduo ou objeto específico. Exemplos: consultar os dados biográficos de um CPF ou detalhes de um veículo a partir da placa dele.
                 </div>
               )}
               {formData.tipoInfo === "conjunto" && (
                 <div className="mt-4 bg-green-50 text-green-800 p-4 rounded-lg border border-green-200">
-                  <strong>Conjunto de Informações:</strong> Pesquisa baseada em filtros que retorna lista de dados. Usa parâmetros de pesquisa abrangentes e retorna matriz com múltiplos registros.
+                  <strong>Conjunto de Informações:</strong>
+                  Pesquisa baseada em filtros (parâmetros) que retorna uma lista de resultados. Exemplos: lista dos beneficiários do Vale Gás ou lista de veículos com licenciamento atrasado em um município
                 </div>
               )}
             </section>
@@ -387,7 +396,7 @@ export default function CategorizacaoPage() {
             {/* Detalhes e Atributos */}
             <section className="bg-white border text-sm border-slate-200 rounded-xl p-6 shadow-sm">
               <h2 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2 border-b-2 border-slate-100 pb-3">
-                <span className="text-[#009a4d]">📝</span> Detalhes da Informação Categorizada
+                <span className="text-[#009a4d]">📝</span> Informe detalhes da informação a ser categorizada
               </h2>
               
               <div className="space-y-6">
@@ -407,7 +416,7 @@ export default function CategorizacaoPage() {
                   <InteractiveAttributes 
                     type="entrada"
                     title="ENTRADA"
-                    description="Parâmetros definidos pelo gestor de dados que o solicitante fornecerá para localizar o registro ou filtrar a lista."
+                    description="O que o solicitante de dados vai precisar inserir para consultar a informação. Pode ser mais de um parâmetro, se for necessário."
                     placeholder="Ex: CPF, matrícula, NIS..."
                     items={atributosEntrada}
                     onAdd={(name) => setAtributosEntrada([...atributosEntrada, { id: Date.now().toString(), name }])}
@@ -416,7 +425,7 @@ export default function CategorizacaoPage() {
                   <InteractiveAttributes 
                     type="saida"
                     title="SAÍDA"
-                    description="Dados disponibilizados ao solicitante por meio da API, como resultado da consulta realizada a partir dos atributos de entrada."
+                    description="Os atributos que você retornará na lista de resultados."
                     placeholder="Ex: nome, telefone, endereço..."
                     items={atributosSaida}
                     onAdd={(name) => setAtributosSaida([...atributosSaida, { id: Date.now().toString(), name }])}
@@ -429,7 +438,7 @@ export default function CategorizacaoPage() {
             {/* Secao LGPD */}
             <section className="bg-[#fefce8] border-[3px] border-amber-400 rounded-2xl p-6 shadow-sm">
               <h3 className="text-amber-800 font-bold text-xl mb-6 flex items-center gap-2">
-                <span className="text-amber-700">⚖️</span> Dados Pessoais (LGPD)
+                <span className="text-amber-700">⚖️</span> Os dados solicitados envolvem dados pessoais? (LGPD)
               </h3>
               
               <div className="bg-[#fdf8d4] rounded-lg p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-5 border border-amber-200/50">
@@ -443,8 +452,9 @@ export default function CategorizacaoPage() {
               </div>
 
               <div className="bg-[#eef4ff] border border-[#bfd7fc] rounded-lg p-5 text-blue-900 text-sm leading-relaxed mb-2 space-y-2">
-                <p><strong>Dados pessoais:</strong> Informações que identifiquem ou tornem identificável uma pessoa (CPF completo, nome + endereço, etc.). <strong>Dados sensíveis:</strong> origem racial, convicções religiosas, dados de saúde, orientação sexual, etc.</p>
-                <p><strong>Art. 5.5 da Resolução:</strong> O compartilhamento de dados pessoais deve seguir as resoluções do Comitê Estadual de Proteção de Dados Pessoais.</p>
+                <p><strong>O que são dados pessoais?</strong> Informações que identifiquem ou tornem identificável uma pessoa (CPF completo, nome + endereço, etc.). </p>
+
+                <p>Se sua solicitação envolve dados pessoais, é necessário informar a <strong>finalidade</strong>, <strong>adequação</strong>, <strong>necessidade</strong> e <strong>base legal</strong> para ter acesso aos dados.</p>
               </div>
 
               {formData.envolveDadosPessoais && (
@@ -453,17 +463,7 @@ export default function CategorizacaoPage() {
                     <div>
                       <label className="block font-bold text-slate-700 mb-2">Finalidade <span className="text-red-500">*</span></label>
                       <textarea className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-[80px]" value={formData.finalidadeLGPD} onChange={(e) => setFormData({...formData, finalidadeLGPD: e.target.value})} />
-                      <p className="text-xs text-slate-500 mt-1">Objetivo legítimo, específico e explícito do tratamento dos dados</p>
-                    </div>
-                    
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-2">Base Legal <span className="text-red-500">*</span></label>
-                      <select className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none" value={formData.baseLegalLGPD} onChange={(e) => setFormData({...formData, baseLegalLGPD: e.target.value})}>
-                        <option value="">-- Selecione --</option>
-                        <option value="art-7-iii">Art. 7º, III - Execução de políticas públicas (dados comuns)</option>
-                        <option value="art-11-ii-b">Art. 11, II, "b" - Política pública prevista em lei (dados sensíveis)</option>
-                        <option value="outro">Outro (especificar na adequação)</option>
-                      </select>
+                      <p className="text-xs text-slate-500 mt-1">Justifique porque não é possível fazer sem esse dado</p>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -478,6 +478,27 @@ export default function CategorizacaoPage() {
                         <p className="text-xs text-slate-500 mt-1">Justificativa de que são dados mínimos necessários</p>
                       </div>
                     </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-2">
+                          Base Legal <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none"
+                          value={formData.baseLegalLGPD}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              baseLegalLGPD: e.target.value,
+                            })
+                          }
+                        ></input>
+                        <p className="text-xs text-slate-500 mt-1">
+                          Informar qual a justificativa na lei, de acordo com a
+                          LGPD. Ex: Art. 7º, III - Execução de políticas
+                          públicas (dados comuns)
+                        </p>
+                    </div>
                   </div>
                 </div>
               )}
@@ -486,7 +507,7 @@ export default function CategorizacaoPage() {
             {/* Categorização e Privacidade */}
             <section className="bg-white border text-sm border-slate-200 rounded-xl p-6 shadow-sm">
               <h2 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2 border-b-2 border-slate-100 pb-3">
-                <span className="text-[#009a4d]">🔐</span> Categoria de Compartilhamento
+                <span className="text-[#009a4d]">🔐</span> Escolha a categoria de compartilhamento
               </h2>
               
               <div className="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-lg flex items-start gap-3 mb-6 font-medium">
