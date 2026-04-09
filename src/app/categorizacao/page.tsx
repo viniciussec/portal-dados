@@ -21,11 +21,6 @@ export default function CategorizacaoPage() {
     subcategoria: "",
     regrasCompartilhamento: "",
     fundamentacaoEspecifica: "",
-    envolveDadosPessoais: false,
-    finalidadeLGPD: "",
-    baseLegalLGPD: "",
-    adequacaoLGPD: "",
-    necessidadeLGPD: "",
   };
 
   const [formData, setFormData] = useState(INITIAL_STATE);
@@ -54,12 +49,6 @@ export default function CategorizacaoPage() {
     const [y, m, day] = d.split("-");
     return `${day}/${m}/${y}`;
   }
-
-  const LABEL_BASE_LEGAL: Record<string, string> = {
-    "art-7-iii": "Art. 7º, III - Execução de políticas públicas (dados comuns)",
-    "art-11-ii-b": 'Art. 11, II, "b" - Política pública prevista em lei (dados sensíveis)',
-    outro: "Outro (especificar na adequação)",
-  };
 
   const handleLimpar = () => {
     setModalConfig({
@@ -118,12 +107,6 @@ export default function CategorizacaoPage() {
       { key: 'subcategoria', label: 'Subcategoria' }
     ];
     const missing = required.filter(f => !formData[f.key as keyof typeof formData]);
-    if (formData.envolveDadosPessoais) {
-      if (!formData.finalidadeLGPD) missing.push({ key: 'finalidadeLGPD', label: 'LGPD: Finalidade' });
-      if (!formData.baseLegalLGPD) missing.push({ key: 'baseLegalLGPD', label: 'LGPD: Base Legal' });
-      if (!formData.adequacaoLGPD) missing.push({ key: 'adequacaoLGPD', label: 'LGPD: Adequação' });
-      if (!formData.necessidadeLGPD) missing.push({ key: 'necessidadeLGPD', label: 'LGPD: Necessidade' });
-    }
     if (formData.contatoTecnico && !isValidEmail(formData.contatoTecnico))
       missing.push({ key: 'contatoTecnico', label: 'Contato Técnico (E-mail inválido)' });
     return missing;
@@ -194,15 +177,6 @@ export default function CategorizacaoPage() {
           {formData.regrasCompartilhamento && <Row label="Regras Complementares" value={formData.regrasCompartilhamento} />}
           {formData.fundamentacaoEspecifica && <Row label="Fundamentação Específica" value={formData.fundamentacaoEspecifica} />}
         </Section>
-
-        {formData.envolveDadosPessoais && (
-          <Section title="Proteção de Dados Pessoais (LGPD)" colorClass="bg-amber-50 text-amber-800">
-            <Row label="Finalidade" value={formData.finalidadeLGPD} />
-            <Row label="Base Legal" value={LABEL_BASE_LEGAL[formData.baseLegalLGPD] || formData.baseLegalLGPD} />
-            <Row label="Adequação" value={formData.adequacaoLGPD} />
-            <Row label="Necessidade" value={formData.necessidadeLGPD} />
-          </Section>
-        )}
       </div>
     );
   };
@@ -255,19 +229,6 @@ export default function CategorizacaoPage() {
       }
     ];
 
-    if (formData.envolveDadosPessoais) {
-      pdfData.splice(3, 0, {
-        title: "Proteção de Dados Pessoais (LGPD)",
-        content: [
-          `Envolve Dados Pessoais: Sim`,
-          `Finalidade: ${formData.finalidadeLGPD}`,
-          `Base Legal: ${formData.baseLegalLGPD === 'art-7-iii' ? 'Art. 7º, III (dados comuns)' : formData.baseLegalLGPD === 'art-11-ii-b' ? 'Art. 11, II, "b" (dados sensíveis)' : formData.baseLegalLGPD}`,
-          `Adequação: ${formData.adequacaoLGPD}`,
-          `Necessidade: ${formData.necessidadeLGPD}`
-        ]
-      });
-    }
-
     generatePDF("Ficha de Categorização de Dados", pdfData, "save");
   };
 
@@ -288,7 +249,7 @@ export default function CategorizacaoPage() {
           <div className="absolute top-0 inset-x-0 h-2 bg-[#009a4d]"></div>
           <div className="bg-slate-50 border-b border-slate-200 p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-6">
-              <div className="hidden sm:flex bg-white w-28 h-20 items-center justify-center border-b-[4px] border-[#009a4d] shadow-sm shrink-0">
+              <div className="hidden sm:flex bg-white w-28 h-20 items-center justify-center border-b-4 border-[#009a4d] shadow-sm shrink-0">
                  <FileText strokeWidth={1.25} className="w-10 h-10 text-slate-700" />
               </div>
               <div>
@@ -362,7 +323,7 @@ export default function CategorizacaoPage() {
               </h2>
               
               <div className="bg-slate-50 border border-slate-200 text-slate-700 p-4 rounded-lg flex items-start gap-3 mb-6">
-                <Info className="flex-shrink-0 mt-0.5 text-slate-500" />
+                <Info className="shrink-0 mt-0.5 text-slate-500" />
                 <p>Existem dois tipos de informações previstos na Resolução:
                   <br /><br />
                   <strong>Consulta de Registro Único:</strong> Pesquisa que retorna informações sobre um indivíduo ou objeto específico. Exemplos: consultar os dados biográficos de um CPF ou detalhes de um veículo a partir da placa dele.
@@ -408,7 +369,7 @@ export default function CategorizacaoPage() {
                 
                 <div>
                   <label className="block font-bold text-slate-700 mb-2">Descrição <span className="text-red-500">*</span></label>
-                  <textarea className="w-full p-2.5 border-2 border-slate-200 bg-slate-50 rounded-lg focus:border-[#009a4d] focus:bg-white focus:ring-4 focus:ring-green-50 transition-all outline-none min-h-[120px]" value={formData.descricaoDado} onChange={(e) => setFormData({...formData, descricaoDado: e.target.value})} />
+                  <textarea className="w-full p-2.5 border-2 border-slate-200 bg-slate-50 rounded-lg focus:border-[#009a4d] focus:bg-white focus:ring-4 focus:ring-green-50 transition-all outline-none min-h-30" value={formData.descricaoDado} onChange={(e) => setFormData({...formData, descricaoDado: e.target.value})} />
                   <p className="text-xs text-slate-500 mt-2">Definição detalhada do dado ou informação categorizada</p>
                 </div>
                 
@@ -435,75 +396,6 @@ export default function CategorizacaoPage() {
               </div>
             </section>
 
-            {/* Secao LGPD */}
-            <section className="bg-[#fefce8] border-[3px] border-amber-400 rounded-2xl p-6 shadow-sm">
-              <h3 className="text-amber-800 font-bold text-xl mb-6 flex items-center gap-2">
-                <span className="text-amber-700">⚖️</span> Os dados solicitados envolvem dados pessoais? (LGPD)
-              </h3>
-              
-              <div className="bg-[#fdf8d4] rounded-lg p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-5 border border-amber-200/50">
-                <span className="text-slate-800 font-medium text-base">A categorização envolve dados pessoais?</span>
-                
-                <label className="relative inline-flex items-center cursor-pointer sm:ml-auto">
-                  <input type="checkbox" className="sr-only peer" checked={formData.envolveDadosPessoais} onChange={(e) => setFormData({...formData, envolveDadosPessoais: e.target.checked})} />
-                  <div className="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#009a4d] shadow-inner"></div>
-                  <span className="ml-3 font-bold text-slate-700 w-8">{formData.envolveDadosPessoais ? 'SIM' : 'NÃO'}</span>
-                </label>
-              </div>
-
-              <div className="bg-[#eef4ff] border border-[#bfd7fc] rounded-lg p-5 text-blue-900 text-sm leading-relaxed mb-2 space-y-2">
-                <p><strong>O que são dados pessoais?</strong> Informações que identifiquem ou tornem identificável uma pessoa (CPF completo, nome + endereço, etc.). </p>
-
-                <p>Se sua solicitação envolve dados pessoais, é necessário informar a <strong>finalidade</strong>, <strong>adequação</strong>, <strong>necessidade</strong> e <strong>base legal</strong> para ter acesso aos dados.</p>
-              </div>
-
-              {formData.envolveDadosPessoais && (
-                <div className="mt-8 space-y-6 pt-6 border-t border-amber-200 animate-in fade-in duration-300">
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-2">Finalidade <span className="text-red-500">*</span></label>
-                      <textarea className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-[80px]" value={formData.finalidadeLGPD} onChange={(e) => setFormData({...formData, finalidadeLGPD: e.target.value})} />
-                      <p className="text-xs text-slate-500 mt-1">Justifique porque não é possível fazer sem esse dado</p>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-2">Adequação <span className="text-red-500">*</span></label>
-                        <textarea className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-[80px]" value={formData.adequacaoLGPD} onChange={(e) => setFormData({...formData, adequacaoLGPD: e.target.value})} />
-                        <p className="text-xs text-slate-500 mt-1">Compatibilidade do tratamento com a finalidade informada</p>
-                      </div>
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-2">Necessidade <span className="text-red-500">*</span></label>
-                        <textarea className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-[80px]" value={formData.necessidadeLGPD} onChange={(e) => setFormData({...formData, necessidadeLGPD: e.target.value})} />
-                        <p className="text-xs text-slate-500 mt-1">Justificativa de que são dados mínimos necessários</p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block font-bold text-slate-700 mb-2">
-                          Base Legal <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none"
-                          value={formData.baseLegalLGPD}
-                          onChange={(e) =>
-                            setFormData({
-                              ...formData,
-                              baseLegalLGPD: e.target.value,
-                            })
-                          }
-                        ></input>
-                        <p className="text-xs text-slate-500 mt-1">
-                          Informar qual a justificativa na lei, de acordo com a
-                          LGPD. Ex: Art. 7º, III - Execução de políticas
-                          públicas (dados comuns)
-                        </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </section>
-
             {/* Categorização e Privacidade */}
             <section className="bg-white border text-sm border-slate-200 rounded-xl p-6 shadow-sm">
               <h2 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2 border-b-2 border-slate-100 pb-3">
@@ -511,7 +403,7 @@ export default function CategorizacaoPage() {
               </h2>
               
               <div className="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-lg flex items-start gap-3 mb-6 font-medium">
-                <AlertTriangle className="flex-shrink-0 mt-0.5 text-amber-600" />
+                <AlertTriangle className="shrink-0 mt-0.5 text-amber-600" />
                 <p><strong>Importante:</strong> Categorizar sempre que possível no nível mais aberto, respeitando regras de sigilo (Art. 3.1).</p>
               </div>
 
@@ -581,13 +473,13 @@ export default function CategorizacaoPage() {
                         <span>Você categorizou o dado como compartilhamento <strong>específico</strong>. <br/> Preencha quais são as <strong>regras</strong> de acesso a esse dado, esclarecendo quais são os órgãos e entidades que têm direito a acessá-lo.</span>
                       )
                     }</p>
-                    <textarea className="w-full p-2.5 border-2 border-slate-200 bg-white rounded-lg focus:border-[#009a4d] focus:ring-4 focus:ring-green-50 transition-all outline-none min-h-[80px]" value={formData.regrasCompartilhamento} onChange={(e) => setFormData({...formData, regrasCompartilhamento: e.target.value})} />
+                    <textarea className="w-full p-2.5 border-2 border-slate-200 bg-white rounded-lg focus:border-[#009a4d] focus:ring-4 focus:ring-green-50 transition-all outline-none min-h-20" value={formData.regrasCompartilhamento} onChange={(e) => setFormData({...formData, regrasCompartilhamento: e.target.value})} />
                   </div>
                   {formData.categoria === 'especifico' && (
                     <div>
                       <label className="block font-bold text-slate-700 mb-2">Fundamentação para Categorização Específica</label>
                       <p className="text-xs text-slate-500 mt-1">Já que você categorizou o dado como compartilhamento <strong>específico</strong>, justifique a necessidade de estar nessa categoria.</p>
-                      <textarea className="w-full p-2.5 border-2 border-slate-200 bg-white rounded-lg focus:border-[#009a4d] focus:ring-4 focus:ring-green-50 transition-all outline-none min-h-[80px]" value={formData.fundamentacaoEspecifica} onChange={(e) => setFormData({...formData, fundamentacaoEspecifica: e.target.value})} />
+                      <textarea className="w-full p-2.5 border-2 border-slate-200 bg-white rounded-lg focus:border-[#009a4d] focus:ring-4 focus:ring-green-50 transition-all outline-none min-h-20" value={formData.fundamentacaoEspecifica} onChange={(e) => setFormData({...formData, fundamentacaoEspecifica: e.target.value})} />
                     </div>
                   )}
                 </div>
