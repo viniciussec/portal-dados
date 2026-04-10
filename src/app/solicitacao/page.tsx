@@ -131,6 +131,7 @@ export default function SolicitacaoPage() {
     envolveDadosPessoais: false,
     finalidadeLGPD: "",
     baseLegalLGPD: "",
+    baseLegalEspecificaLGPD: "",
     adequacaoLGPD: "",
     necessidadeLGPD: "",
   };
@@ -214,6 +215,9 @@ export default function SolicitacaoPage() {
         missing.push({ key: "finalidadeLGPD", label: "LGPD: Finalidade" });
       if (!formData.baseLegalLGPD)
         missing.push({ key: "baseLegalLGPD", label: "LGPD: Base Legal" });
+      else if (formData.baseLegalLGPD === "Outro" && !formData.baseLegalEspecificaLGPD)
+        missing.push({ key: "baseLegalEspecificaLGPD", label: "LGPD: Base Legal Específica" });
+
       if (!formData.adequacaoLGPD)
         missing.push({ key: "adequacaoLGPD", label: "LGPD: Adequação" });
       if (!formData.necessidadeLGPD)
@@ -390,8 +394,10 @@ export default function SolicitacaoPage() {
             <PreviewRow
               label="Base Legal"
               value={
-                LABEL_BASE_LEGAL[formData.baseLegalLGPD] ||
-                formData.baseLegalLGPD
+                formData.baseLegalLGPD === "Outro" && formData.baseLegalEspecificaLGPD
+                  ? `Outro - ${formData.baseLegalEspecificaLGPD}`
+                  : LABEL_BASE_LEGAL[formData.baseLegalLGPD] ||
+                    formData.baseLegalLGPD
               }
             />
             <PreviewRow label="Adequação" value={formData.adequacaoLGPD} />
@@ -510,7 +516,7 @@ export default function SolicitacaoPage() {
         content: [
           `Envolve Dados Pessoais: Sim`,
           `Finalidade: ${formData.finalidadeLGPD}`,
-          `Base Legal: ${LABEL_BASE_LEGAL[formData.baseLegalLGPD] || formData.baseLegalLGPD}`,
+          `Base Legal: ${formData.baseLegalLGPD === "Outro" && formData.baseLegalEspecificaLGPD ? `Outro - ${formData.baseLegalEspecificaLGPD}` : LABEL_BASE_LEGAL[formData.baseLegalLGPD] || formData.baseLegalLGPD}`,
           `Adequação: ${formData.adequacaoLGPD}`,
           `Necessidade: ${formData.necessidadeLGPD}`,
         ],
@@ -607,7 +613,7 @@ export default function SolicitacaoPage() {
           <div className="absolute top-0 inset-x-0 h-2 bg-orange-500"></div>
           <div className="bg-slate-50 border-b border-slate-200 p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-6">
-              <div className="hidden sm:flex bg-white w-28 h-20 items-center justify-center border-b-[4px] border-orange-500 shadow-sm shrink-0">
+              <div className="hidden sm:flex bg-white w-28 h-20 items-center justify-center border-b-4 border-orange-500 shadow-sm shrink-0">
                 <SearchCode
                   strokeWidth={1.25}
                   className="w-10 h-10 text-slate-700"
@@ -666,7 +672,7 @@ export default function SolicitacaoPage() {
                 de solicitação
               </h2>
               <div className="bg-slate-50 border border-slate-200 text-slate-700 p-4 rounded-lg flex items-start gap-3 mb-6 font-medium">
-                <Info className="flex-shrink-0 mt-0.5 text-slate-500" />
+                <Info className="shrink-0 mt-0.5 text-slate-500" />
                 <p>
                   Primeiro consulte o <strong>Catálogo de Dados</strong>{" "}
                   disponibilizado pelo{" "}
@@ -928,7 +934,7 @@ export default function SolicitacaoPage() {
                       🟢 Referência do Catálogo (Dado Categorizado)
                     </h3>
                     <div className="bg-green-50 border border-green-200 text-green-800 p-4 rounded-lg flex items-start gap-3 mb-6 text-sm">
-                      <Scale className="flex-shrink-0 mt-0.5" size={18} />
+                      <Scale className="shrink-0 mt-0.5" size={18} />
                       <ul>
                         <li>
                           Você está solicitando um dado já categorizado, ou
@@ -1051,7 +1057,7 @@ export default function SolicitacaoPage() {
                       🔴 Detalhamento para Categorização Prévia
                     </h3>
                     <div className="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-lg flex items-start gap-3 mb-6">
-                      <Scale className="flex-shrink-0 mt-0.5" size={18} />
+                      <Scale className="shrink-0 mt-0.5" size={18} />
                       <ul>
                         <li>
                           Você está solicitando um dado que ainda não foi
@@ -1208,7 +1214,7 @@ export default function SolicitacaoPage() {
                         })
                       }
                     />
-                    <div className="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#009a4d] shadow-inner"></div>
+                    <div className="w-12 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#009a4d] shadow-inner"></div>
                     <span className="ml-3 font-bold text-slate-700 w-8">
                       {formData.envolveDadosPessoais ? "SIM" : "NÃO"}
                     </span>
@@ -1240,7 +1246,7 @@ export default function SolicitacaoPage() {
                           Finalidade <span className="text-red-500">*</span>
                         </label>
                         <textarea
-                          className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-[80px]"
+                          className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-20"
                           placeholder="Objetivo legítimo, específico e explícito..."
                           value={formData.finalidadeLGPD}
                           onChange={(e) =>
@@ -1260,7 +1266,7 @@ export default function SolicitacaoPage() {
                             Adequação <span className="text-red-500">*</span>
                           </label>
                           <textarea
-                            className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-[80px]"
+                            className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-20"
                             value={formData.adequacaoLGPD}
                             onChange={(e) =>
                               setFormData({
@@ -1279,7 +1285,7 @@ export default function SolicitacaoPage() {
                             Necessidade <span className="text-red-500">*</span>
                           </label>
                           <textarea
-                            className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-[80px]"
+                            className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none min-h-20"
                             value={formData.necessidadeLGPD}
                             onChange={(e) =>
                               setFormData({
@@ -1297,7 +1303,7 @@ export default function SolicitacaoPage() {
                         <label className="block font-bold text-slate-700 mb-2">
                           Base Legal <span className="text-red-500">*</span>
                         </label>
-                        <input
+                        <select
                           className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none"
                           value={formData.baseLegalLGPD}
                           onChange={(e) =>
@@ -1306,13 +1312,43 @@ export default function SolicitacaoPage() {
                               baseLegalLGPD: e.target.value,
                             })
                           }
-                        ></input>
+                        >
+                          <option
+                            value="Art. 7º, III - Execução de políticas
+                          públicas (dados comuns)"
+                          >
+                            Art. 7º, III - Execução de políticas públicas (dados
+                            comuns)
+                          </option>
+                          <option
+                            value={`Art. 11, II, "b" - Política pública prevista em lei (dados sensíveis)`}
+                          >{`Art. 11, II, "b" - Política pública prevista em lei (dados sensíveis)`}</option>
+                          <option value="Outro">Outro</option>
+                        </select>
                         <p className="text-xs text-slate-500 mt-1">
                           Informar qual a justificativa na lei, de acordo com a
                           LGPD. Ex: Art. 7º, III - Execução de políticas
                           públicas (dados comuns)
                         </p>
                       </div>
+                      {formData.baseLegalLGPD === "Outro" && (
+                        <div>
+                          <label className="block font-bold text-slate-700 mb-2">
+                            Especifique a base legal{" "}
+                            <span className="text-red-500">*</span>
+                          </label>
+                          <textarea
+                            className="w-full p-2.5 border-2 border-amber-200 bg-white rounded-lg focus:border-amber-500 outline-none"
+                            value={formData.baseLegalEspecificaLGPD}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                baseLegalEspecificaLGPD: e.target.value,
+                              })
+                            }
+                          ></textarea>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
