@@ -9,10 +9,12 @@ export default function Home() {
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16 mt-8">
           <h2 className="text-3xl font-extrabold text-[#009a4d] sm:text-4xl drop-shadow-sm">
-            Portal de Governança de Dados
+            Portal da Interoperabilidade do Governo do Ceará
           </h2>
           <p className="mt-4 text-xl text-slate-500 max-w-2xl mx-auto">
-            Selecione o seu perfil para realizar a categorização ou solicitar acesso a conjuntos de dados do Governo do Estado do Ceará.
+            Selecione o card com o que você deseja fazer: solicitar dados,
+            categorizar dados, estudar sobre a plataforma, conhecer a cartilha,
+            etc.
           </p>
         </div>
 
@@ -25,10 +27,12 @@ export default function Home() {
                 <FileText className="w-10 h-10 text-emerald-600" />
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">
-                Sou Gestor de Dados
+                Quero categorizar meus dados para compartilhar
               </h3>
               <p className="text-slate-500 leading-relaxed">
-                Acesse a Ficha de Categorização para declarar e classificar formalmente a disponibilidade técnica dos dados sob sua governança.
+                Preencha a Ficha de Categorização para classificar os dados que
+                seu órgão irá compartilhar pela plataforma de
+                interoperabilidade.
               </p>
               <div className="mt-8 px-6 py-2 bg-slate-50 text-emerald-600 font-semibold rounded-full group-hover:bg-emerald-50 transition-colors">
                 Iniciar Categorização &rarr;
@@ -44,10 +48,12 @@ export default function Home() {
                 <SearchCode className="w-10 h-10 text-orange-600" />
               </div>
               <h3 className="text-2xl font-bold text-slate-800 mb-4">
-                Sou Órgão Solicitante
+                Quero solicitar dados de outro órgão
               </h3>
               <p className="text-slate-500 leading-relaxed">
-                Acesse a Ficha de Solicitação para requerer integração, consumir APIs ou obter bases de dados em conformidade com as resoluções.
+                Mudar descrição para: Preencha a Ficha de Solicitação para pedir
+                API's que outro órgão irá disponibilizar pela plataforma de
+                interoperabilidade.
               </p>
               <div className="mt-8 px-6 py-2 bg-slate-50 text-orange-600 font-semibold rounded-full group-hover:bg-orange-50 transition-colors">
                 Nova Solicitação &rarr;
