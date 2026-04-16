@@ -51,9 +51,8 @@ export default function Home() {
                 Quero solicitar dados de outro órgão
               </h3>
               <p className="text-slate-500 leading-relaxed">
-                Mudar descrição para: Preencha a Ficha de Solicitação para pedir
-                API's que outro órgão irá disponibilizar pela plataforma de
-                interoperabilidade.
+                Preencha a Ficha de Solicitação para pedir API's que outro órgão
+                irá disponibilizar pela plataforma de interoperabilidade.
               </p>
               <div className="mt-8 px-6 py-2 bg-slate-50 text-orange-600 font-semibold rounded-full group-hover:bg-orange-50 transition-colors">
                 Nova Solicitação &rarr;
