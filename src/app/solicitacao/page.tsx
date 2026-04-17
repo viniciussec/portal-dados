@@ -19,6 +19,7 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Modal } from "@/components/ui/Modal";
+import { ExportModalContent } from "@/components/ExportModalContent";
 
 // ── Utilitários ──────────────────────────────────────────────────────────────
 
@@ -215,8 +216,14 @@ export default function SolicitacaoPage() {
         missing.push({ key: "finalidadeLGPD", label: "LGPD: Finalidade" });
       if (!formData.baseLegalLGPD)
         missing.push({ key: "baseLegalLGPD", label: "LGPD: Base Legal" });
-      else if (formData.baseLegalLGPD === "Outro" && !formData.baseLegalEspecificaLGPD)
-        missing.push({ key: "baseLegalEspecificaLGPD", label: "LGPD: Base Legal Específica" });
+      else if (
+        formData.baseLegalLGPD === "Outro" &&
+        !formData.baseLegalEspecificaLGPD
+      )
+        missing.push({
+          key: "baseLegalEspecificaLGPD",
+          label: "LGPD: Base Legal Específica",
+        });
 
       if (!formData.adequacaoLGPD)
         missing.push({ key: "adequacaoLGPD", label: "LGPD: Adequação" });
@@ -394,7 +401,8 @@ export default function SolicitacaoPage() {
             <PreviewRow
               label="Base Legal"
               value={
-                formData.baseLegalLGPD === "Outro" && formData.baseLegalEspecificaLGPD
+                formData.baseLegalLGPD === "Outro" &&
+                formData.baseLegalEspecificaLGPD
                   ? `Outro - ${formData.baseLegalEspecificaLGPD}`
                   : LABEL_BASE_LEGAL[formData.baseLegalLGPD] ||
                     formData.baseLegalLGPD
@@ -527,40 +535,7 @@ export default function SolicitacaoPage() {
       isOpen: true,
       type: "info",
       title: "Próximos Passos (Orientação)",
-      content: (
-        <div className="space-y-4 text-sm mt-2">
-          <p className="font-medium text-slate-700">
-            Para tramitar a Solicitação de Compartilhamento, siga as diretrizes
-            governamentais:
-          </p>
-          <ul className="space-y-4">
-            <li className="flex gap-3 items-start">
-              <span className="text-orange-500 mt-0.5">🔹</span>
-              <span className="text-slate-600">
-                <strong>Envio Via Ofício:</strong> O PDF gerado deve ser
-                encaminhado via Ofício ao Órgão Gestor da Informação através do
-                sistema <strong>SUITE</strong>.
-              </span>
-            </li>
-            <li className="flex gap-3 items-start">
-              <span className="text-orange-500 mt-0.5">🔹</span>
-              <span className="text-slate-600">
-                <strong>Acordo de Confidencialidade:</strong> Caso envolva
-                acesso a dados pessoais ou sensíveis restritos, certifique-se de
-                anexar o termo de sigilo correspondente.
-              </span>
-            </li>
-            <li className="flex gap-3 items-start">
-              <span className="text-orange-500 mt-0.5">🔹</span>
-              <span className="text-slate-600">
-                <strong>Acompanhamento:</strong> O Órgão Gestor tem prazo
-                estipulado para analisar seu pedido e poderá interagir via NUP
-                gerado.
-              </span>
-            </li>
-          </ul>
-        </div>
-      ),
+      content: <ExportModalContent journeyType={formData.caminho} />,
       secondaryAction: { label: "Cancelar", onClick: closeModal },
       primaryAction: {
         label: "Prosseguir e Baixar PDF",
