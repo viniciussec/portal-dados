@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { InteractiveAttributes, Attribute } from "@/components/forms/InteractiveAttributes";
-import { FileDown, ArrowLeft, Info, AlertTriangle, Scale, FileText, Eye, Trash2 } from "lucide-react";
+import { FileDown, ArrowLeft, Info, AlertTriangle, Scale, FileText, Eye, Trash2, FileTextIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Modal } from "@/components/ui/Modal";
@@ -488,16 +488,20 @@ export default function CategorizacaoPage() {
           </div>
           
           {/* Footer Action */}
-          <div className="bg-slate-50 border-t border-slate-200 p-6 sm:p-8 flex flex-col sm:flex-row justify-center items-center gap-4">
-            <button onClick={handleLimpar} className="bg-white border-2 border-slate-200 hover:bg-slate-100 text-slate-700 px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:w-auto">
+          <div className="bg-slate-50 border-t border-slate-200 p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <button onClick={handleLimpar} className="bg-white border-2 border-slate-200 hover:bg-slate-100 text-slate-700 px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full">
               <Trash2 size={20} /> Limpar Formulário
             </button>
-            <button onClick={handleVisualizarFicha} className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:w-auto">
+            <button onClick={handleVisualizarFicha} className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full">
               <Eye size={20} /> Visualizar Ficha
             </button>
-            <button onClick={handleGerarPDF} className="bg-[#009a4d] hover:bg-[#008141] text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:w-auto">
+            <button onClick={handleGerarPDF} className="bg-[#009a4d] hover:bg-[#008141] text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full">
               <FileDown size={20} /> Gerar Ficha PDF
             </button>
+            <a href="/ANEXO2 .docx" download="ANEXO2.docx" className="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full">
+              <FileTextIcon size={20} /> Anexo 2
+            </a>
+            
           </div>
         </div>
       </main>
