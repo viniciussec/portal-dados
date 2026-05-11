@@ -1167,8 +1167,8 @@ export default function SolicitacaoPage() {
               </section>
             )}
 
-            {/* LGPD */}
-            {formData.caminho && (
+            {/* LGPD — apenas para dados já categorizados */}
+            {formData.caminho === "categorizado" && (
               <section className="bg-[#fefce8] border-[3px] border-amber-400 rounded-2xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
                 <h3 className="text-amber-800 font-bold text-xl mb-6 flex items-center gap-2">
                   <span className="text-amber-700">⚖️</span> Os dados
@@ -1332,42 +1332,73 @@ export default function SolicitacaoPage() {
             )}
           </div>
 
-          {/* Footer */}
-          <div className="bg-slate-50 border-t border-slate-200 p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-6 gap-4">
+          {/* Footer Dinâmico */}
+          <div
+            className={cn(
+              "bg-slate-50 border-t border-slate-200 p-6 sm:p-8 grid grid-cols-1 gap-4",
+              !formData.caminho && "sm:grid-cols-3",
+              formData.caminho === "nao-categorizado" && "sm:grid-cols-2",
+              formData.caminho === "categorizado" && "sm:grid-cols-6",
+            )}
+          >
+            {/* Botões Universais (Sempre presentes) */}
             <button
               onClick={handleLimpar}
-              className="bg-white border-2 border-slate-200 hover:bg-slate-100 text-slate-700 px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:col-span-2"
+              className={cn(
+                "bg-white border-2 border-slate-200 hover:bg-slate-100 text-slate-700 px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full",
+                formData.caminho === "categorizado" && "sm:col-span-2",
+              )}
             >
               <Trash2 size={20} /> Limpar Formulário
             </button>
             <button
               onClick={handleVisualizarFicha}
               disabled={!formData.caminho}
-              className="disabled:opacity-50 disabled:cursor-not-allowed bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:col-span-2"
+              className={cn(
+                "disabled:opacity-50 disabled:cursor-not-allowed bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full",
+                formData.caminho === "categorizado" && "sm:col-span-2",
+              )}
             >
               <Eye size={20} /> Visualizar Ficha
             </button>
             <button
               onClick={handleGerarPDF}
               disabled={!formData.caminho}
-              className="disabled:opacity-50 disabled:cursor-not-allowed bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:col-span-2"
+              className={cn(
+                "disabled:opacity-50 disabled:cursor-not-allowed bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full",
+                formData.caminho === "categorizado" && "sm:col-span-2",
+              )}
             >
               <FileDown size={20} /> Gerar Ficha PDF
             </button>
-            <a
-              href="/ANEXO3.docx"
-              download="ANEXO3.docx"
-              className="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:col-span-3"
-            >
-              <FileTextIcon size={20} /> Anexo 3
-            </a>
-            <a
-              href="/ANEXO5.docx"
-              download="ANEXO4.docx"
-              className="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:col-span-3"
-            >
-              <FileTextIcon size={20} /> Anexo 4
-            </a>
+            {/* Botões Condicionais (Renderizados apenas nos cenários específicos) */}
+            {formData.caminho === "nao-categorizado" && (
+              <a
+                href="/ANEXO2 .docx"
+                download="ANEXO2.docx"
+                className="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full"
+              >
+                <FileTextIcon size={20} /> Anexo 2
+              </a>
+            )}
+            {formData.caminho === "categorizado" && (
+              <>
+                <a
+                  href="/ANEXO3.docx"
+                  download="ANEXO3.docx"
+                  className="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:col-start-2 sm:col-span-2"
+                >
+                  <FileTextIcon size={20} /> Anexo 3
+                </a>
+                <a
+                  href="/ANEXO5.docx"
+                  download="ANEXO4.docx"
+                  className="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:col-start-4 sm:col-span-2"
+                >
+                  <FileTextIcon size={20} /> Anexo 4
+                </a>
+              </>
+            )}
           </div>
         </div>
       </main>
