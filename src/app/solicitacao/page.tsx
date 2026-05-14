@@ -1167,8 +1167,8 @@ export default function SolicitacaoPage() {
               </section>
             )}
 
-            {/* LGPD — apenas para dados já categorizados */}
-            {formData.caminho === "categorizado" && (
+            {/* LGPD */}
+            {formData.caminho && (
               <section className="bg-[#fefce8] border-[3px] border-amber-400 rounded-2xl p-6 shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
                 <h3 className="text-amber-800 font-bold text-xl mb-6 flex items-center gap-2">
                   <span className="text-amber-700">⚖️</span> Os dados
