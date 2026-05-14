@@ -6,16 +6,7 @@ import {
   InteractiveAttributes,
   Attribute,
 } from "@/components/forms/InteractiveAttributes";
-import {
-  FileDown,
-  ArrowLeft,
-  Info,
-  AlertTriangle,
-  Scale,
-  FileText,
-  Eye,
-  Trash2,
-} from "lucide-react";
+import { MsIcon } from "@/components/ui/MsIcon";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Modal } from "@/components/ui/Modal";
@@ -370,16 +361,16 @@ export default function CategorizacaoPage() {
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-6 flex items-center justify-between">
           <Link
-            href="/"
+            href="/servicos"
             className="text-[#009a4d] hover:text-[#008141] flex items-center gap-2 font-medium transition-colors"
           >
-            <ArrowLeft size={20} /> Voltar para o Início
+            <MsIcon name="arrow_back" size={20} /> Voltar para as Fichas
           </Link>
           <button
             onClick={handleGerarPDF}
             className="bg-[#009a4d] hover:bg-[#008141] text-white px-5 py-2.5 rounded-lg flex items-center gap-2 font-medium transition-colors shadow-sm"
           >
-            <FileDown size={20} /> Exportar Ficha PDF
+            <MsIcon name="download" size={20} /> Exportar Ficha PDF
           </button>
         </div>
 
@@ -388,9 +379,10 @@ export default function CategorizacaoPage() {
           <div className="bg-slate-50 border-b border-slate-200 p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-6">
               <div className="hidden sm:flex bg-white w-28 h-20 items-center justify-center border-b-4 border-[#009a4d] shadow-sm shrink-0">
-                <FileText
-                  strokeWidth={1.25}
-                  className="w-10 h-10 text-slate-700"
+                <MsIcon
+                  name="description"
+                  size={40}
+                  className="text-slate-700"
                 />
               </div>
               <div>
@@ -415,7 +407,7 @@ export default function CategorizacaoPage() {
             {/* Legal Info */}
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-amber-900 shadow-sm">
               <h3 className="font-bold flex items-center gap-2 mb-3 text-amber-700">
-                <Scale size={20} /> Para que serve essa ficha?
+                <MsIcon name="balance" size={20} /> Para que serve essa ficha?
               </h3>
               <ul className="space-y-2 text-sm leading-relaxed">
                 <li>
@@ -539,7 +531,11 @@ export default function CategorizacaoPage() {
               </h2>
 
               <div className="bg-slate-50 border border-slate-200 text-slate-700 p-4 rounded-lg flex items-start gap-3 mb-6">
-                <Info className="shrink-0 mt-0.5 text-slate-500" />
+                <MsIcon
+                  name="info"
+                  size={24}
+                  className="shrink-0 mt-0.5 text-slate-500"
+                />
                 <p>
                   Existem dois tipos de informações previstos na Resolução:
                   <br />
@@ -690,7 +686,11 @@ export default function CategorizacaoPage() {
               </h2>
 
               <div className="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-lg flex items-start gap-3 mb-6 font-medium">
-                <AlertTriangle className="shrink-0 mt-0.5 text-amber-600" />
+                <MsIcon
+                  name="warning"
+                  size={24}
+                  className="shrink-0 mt-0.5 text-amber-600"
+                />
                 <p>
                   <strong>Importante:</strong> Categorizar sempre que possível
                   no nível mais aberto, respeitando regras de sigilo (Art. 3.1).
@@ -885,19 +885,19 @@ export default function CategorizacaoPage() {
               onClick={handleLimpar}
               className="bg-white border-2 border-slate-200 hover:bg-slate-100 text-slate-700 px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full"
             >
-              <Trash2 size={20} /> Limpar Formulário
+              <MsIcon name="delete" size={20} /> Limpar Formulário
             </button>
             <button
               onClick={handleVisualizarFicha}
               className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full"
             >
-              <Eye size={20} /> Visualizar Ficha
+              <MsIcon name="visibility" size={20} /> Visualizar Ficha
             </button>
             <button
               onClick={handleGerarPDF}
               className="bg-[#009a4d] hover:bg-[#008141] text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full"
             >
-              <FileDown size={20} /> Gerar Ficha PDF
+              <MsIcon name="download" size={20} /> Gerar Ficha PDF
             </button>
           </div>
         </div>
