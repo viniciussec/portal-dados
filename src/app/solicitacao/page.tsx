@@ -571,10 +571,10 @@ export default function SolicitacaoPage() {
       <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-6 flex items-center justify-between">
           <Link
-            href="/"
+            href="/servicos"
             className="text-orange-600 hover:text-orange-700 flex items-center gap-2 font-medium transition-colors"
           >
-            <ArrowLeft size={20} /> Voltar para o Início
+            <ArrowLeft size={20} /> Voltar para as Fichas
           </Link>
           <button
             onClick={handleGerarPDF}
