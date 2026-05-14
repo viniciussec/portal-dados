@@ -1,13 +1,5 @@
 import { Header } from "@/components/layout/Header";
 import { NavigationCard } from "@/components/ui/NavigationCard";
-import {
-  ClipboardList,
-  GraduationCap,
-  Building2,
-  BookOpen,
-  Scroll,
-  Scale,
-} from "lucide-react";
 
 export default function Home() {
   return (
@@ -30,7 +22,7 @@ export default function Home() {
             href="/servicos"
             title="Quero preencher uma Ficha de Interoperabilidade"
             description="Categorize os dados do seu órgão para compartilhamento ou solicite acesso a APIs de outro órgão pela plataforma X-Valid."
-            icon={ClipboardList}
+            icon="assignment"
             accentColor="emerald"
             ctaLabel="Ver Fichas"
           />
@@ -38,7 +30,7 @@ export default function Home() {
             href="https://sistemas.irislab.ce.gov.br/docs-interoperabilidade/"
             title="Quero estudar sobre a plataforma de interoperabilidade"
             description="Acesse o material do 1º Workshop de Interoperabilidade e entenda como a plataforma X-Valid funciona na prática."
-            icon={GraduationCap}
+            icon="school"
             accentColor="blue"
             ctaLabel="Acessar Workshop"
             isExternal
@@ -47,7 +39,7 @@ export default function Home() {
             href="/pdfs/guia-entrada.pdf"
             title="Quero cadastrar meu órgão na plataforma"
             description="Acesse o guia com o passo a passo para cadastrar seu órgão na plataforma de interoperabilidade X-Valid."
-            icon={Building2}
+            icon="add_business"
             accentColor="violet"
             ctaLabel="Acessar Guia"
             isExternal
@@ -56,7 +48,7 @@ export default function Home() {
             href="/pdfs/cartilha.pdf"
             title="Quero acessar a cartilha de interoperabilidade"
             description="Acesse a Cartilha de Interoperabilidade e tire suas dúvidas sobre o compartilhamento de dados entre órgãos."
-            icon={BookOpen}
+            icon="menu_book"
             accentColor="amber"
             ctaLabel="Acessar Cartilha"
             isExternal
@@ -65,7 +57,7 @@ export default function Home() {
             href="/pdfs/decreto-37059-2026.pdf"
             title="Quero acessar o decreto de interoperabilidade"
             description="Acesse o Decreto 37.059/2026 e conheça as regras de governança no compartilhamento de dados via interoperabilidade."
-            icon={Scroll}
+            icon="contract"
             accentColor="slate"
             ctaLabel="Acessar Decreto"
             isExternal
@@ -74,7 +66,7 @@ export default function Home() {
             href="/pdfs/resolucao-01-2026.pdf"
             title="Quero acessar a resolução com as regras de compartilhamento de dados"
             description="Acesse a Resolução 01/2026 e conheça as regras oficiais de compartilhamento de dados entre órgãos do Governo do Ceará."
-            icon={Scale}
+            icon="balance"
             accentColor="rose"
             ctaLabel="Acessar Resolução"
             isExternal

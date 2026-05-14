@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { type LucideIcon } from "lucide-react";
+import { MsIcon } from "@/components/ui/MsIcon";
 
 type AccentColor =
   | "emerald"
@@ -14,7 +14,7 @@ type NavigationCardProps = {
   href: string;
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: string;
   accentColor: AccentColor;
   ctaLabel: string;
   isExternal?: boolean;
@@ -92,7 +92,7 @@ const colorStyles: Record<
 
 type CardInnerProps = {
   colors: (typeof colorStyles)[AccentColor];
-  Icon: LucideIcon;
+  iconName: string;
   title: string;
   description: string;
   ctaLabel: string;
@@ -100,7 +100,7 @@ type CardInnerProps = {
 
 function CardInner({
   colors,
-  Icon,
+  iconName,
   title,
   description,
   ctaLabel,
@@ -116,7 +116,7 @@ function CardInner({
         <div
           className={`w-20 h-20 ${colors.iconBg} rounded-2xl flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-300`}
         >
-          <Icon className={`w-10 h-10 ${colors.iconText}`} />
+          <MsIcon name={iconName} size={40} className={colors.iconText} />
         </div>
         <h3 className="text-2xl font-bold text-slate-800 mb-4">{title}</h3>
         <p className="text-slate-500 leading-relaxed">{description}</p>
@@ -134,7 +134,7 @@ export function NavigationCard({
   href,
   title,
   description,
-  icon: Icon,
+  icon,
   accentColor,
   ctaLabel,
   isExternal = false,
@@ -151,7 +151,7 @@ export function NavigationCard({
       >
         <CardInner
           colors={colors}
-          Icon={Icon}
+          iconName={icon}
           title={title}
           description={description}
           ctaLabel={ctaLabel}
@@ -164,7 +164,7 @@ export function NavigationCard({
     <Link href={href} className="group block h-full">
       <CardInner
         colors={colors}
-        Icon={Icon}
+        iconName={icon}
         title={title}
         description={description}
         ctaLabel={ctaLabel}

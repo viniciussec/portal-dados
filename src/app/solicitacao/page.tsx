@@ -6,17 +6,7 @@ import {
   InteractiveAttributes,
   Attribute,
 } from "@/components/forms/InteractiveAttributes";
-import {
-  FileDown,
-  ArrowLeft,
-  Scale,
-  Info,
-  CornerDownRight,
-  SearchCode,
-  Eye,
-  Trash2,
-  FileTextIcon,
-} from "lucide-react";
+import { MsIcon } from "@/components/ui/MsIcon";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Modal } from "@/components/ui/Modal";
@@ -574,14 +564,14 @@ export default function SolicitacaoPage() {
             href="/servicos"
             className="text-orange-600 hover:text-orange-700 flex items-center gap-2 font-medium transition-colors"
           >
-            <ArrowLeft size={20} /> Voltar para as Fichas
+            <MsIcon name="arrow_back" size={20} /> Voltar para as Fichas
           </Link>
           <button
             onClick={handleGerarPDF}
             disabled={!formData.caminho}
             className="disabled:opacity-50 disabled:cursor-not-allowed bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-lg flex items-center gap-2 font-medium transition-colors shadow-sm"
           >
-            <FileDown size={20} /> Exportar Ficha PDF
+            <MsIcon name="download" size={20} /> Exportar Ficha PDF
           </button>
         </div>
 
@@ -590,9 +580,10 @@ export default function SolicitacaoPage() {
           <div className="bg-slate-50 border-b border-slate-200 p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-6">
               <div className="hidden sm:flex bg-white w-28 h-20 items-center justify-center border-b-4 border-orange-500 shadow-sm shrink-0">
-                <SearchCode
-                  strokeWidth={1.25}
-                  className="w-10 h-10 text-slate-700"
+                <MsIcon
+                  name="manage_search"
+                  size={40}
+                  className="text-slate-700"
                 />
               </div>
               <div>
@@ -612,7 +603,7 @@ export default function SolicitacaoPage() {
             {/* Base Legal */}
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-amber-900 shadow-sm">
               <h3 className="font-bold flex items-center gap-2 mb-3 text-amber-700">
-                <Scale size={20} /> Para que serve essa ficha?
+                <MsIcon name="balance" size={20} /> Para que serve essa ficha?
               </h3>
               <ul className="space-y-2 text-sm leading-relaxed">
                 <li>
@@ -644,11 +635,19 @@ export default function SolicitacaoPage() {
             {/* Tipo de Solicitação */}
             <section className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm text-sm">
               <h2 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2 border-b-2 border-slate-100 pb-3">
-                <CornerDownRight className="text-orange-500" /> Escolha o tipo
-                de solicitação
+                <MsIcon
+                  name="subdirectory_arrow_right"
+                  size={24}
+                  className="text-orange-500"
+                />{" "}
+                Escolha o tipo de solicitação
               </h2>
               <div className="bg-slate-50 border border-slate-200 text-slate-700 p-4 rounded-lg flex items-start gap-3 mb-6 font-medium">
-                <Info className="shrink-0 mt-0.5 text-slate-500" />
+                <MsIcon
+                  name="info"
+                  size={24}
+                  className="shrink-0 mt-0.5 text-slate-500"
+                />
                 <p>
                   Primeiro consulte o <strong>Catálogo de Dados</strong>{" "}
                   disponibilizado pelo{" "}
@@ -910,7 +909,11 @@ export default function SolicitacaoPage() {
                       🟢 Referência do Catálogo (Dado Categorizado)
                     </h3>
                     <div className="bg-green-50 border border-green-200 text-green-800 p-4 rounded-lg flex items-start gap-3 mb-6 text-sm">
-                      <Scale className="shrink-0 mt-0.5" size={18} />
+                      <MsIcon
+                        name="balance"
+                        size={18}
+                        className="shrink-0 mt-0.5"
+                      />
                       <ul>
                         <li>
                           Você está solicitando um dado já categorizado, ou
@@ -1033,7 +1036,11 @@ export default function SolicitacaoPage() {
                       🔴 Detalhamento para Categorização Prévia
                     </h3>
                     <div className="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-lg flex items-start gap-3 mb-6">
-                      <Scale className="shrink-0 mt-0.5" size={18} />
+                      <MsIcon
+                        name="balance"
+                        size={18}
+                        className="shrink-0 mt-0.5"
+                      />
                       <ul>
                         <li>
                           Você está solicitando um dado que ainda não foi
@@ -1349,7 +1356,7 @@ export default function SolicitacaoPage() {
                 formData.caminho === "categorizado" && "sm:col-span-2",
               )}
             >
-              <Trash2 size={20} /> Limpar Formulário
+              <MsIcon name="delete" size={20} /> Limpar Formulário
             </button>
             <button
               onClick={handleVisualizarFicha}
@@ -1359,7 +1366,7 @@ export default function SolicitacaoPage() {
                 formData.caminho === "categorizado" && "sm:col-span-2",
               )}
             >
-              <Eye size={20} /> Visualizar Ficha
+              <MsIcon name="visibility" size={20} /> Visualizar Ficha
             </button>
             <button
               onClick={handleGerarPDF}
@@ -1369,7 +1376,7 @@ export default function SolicitacaoPage() {
                 formData.caminho === "categorizado" && "sm:col-span-2",
               )}
             >
-              <FileDown size={20} /> Gerar Ficha PDF
+              <MsIcon name="download" size={20} /> Gerar Ficha PDF
             </button>
             {/* Botões Condicionais (Renderizados apenas nos cenários específicos) */}
             {formData.caminho === "nao-categorizado" && (
@@ -1378,7 +1385,7 @@ export default function SolicitacaoPage() {
                 download="ANEXO2.docx"
                 className="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full"
               >
-                <FileTextIcon size={20} /> Anexo 2
+                <MsIcon name="description" size={20} /> Anexo 2
               </a>
             )}
             {formData.caminho === "categorizado" && (
@@ -1388,14 +1395,14 @@ export default function SolicitacaoPage() {
                   download="ANEXO3.docx"
                   className="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:col-start-2 sm:col-span-2"
                 >
-                  <FileTextIcon size={20} /> Anexo 3
+                  <MsIcon name="description" size={20} /> Anexo 3
                 </a>
                 <a
                   href="/ANEXO5.docx"
                   download="ANEXO4.docx"
                   className="bg-gray-400 hover:bg-gray-500 text-white px-8 py-3 rounded-xl font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-colors shadow-sm active:scale-95 w-full sm:col-start-4 sm:col-span-2"
                 >
-                  <FileTextIcon size={20} /> Anexo 4
+                  <MsIcon name="description" size={20} /> Anexo 4
                 </a>
               </>
             )}

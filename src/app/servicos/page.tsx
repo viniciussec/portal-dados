@@ -1,7 +1,7 @@
 import { Header } from "@/components/layout/Header";
 import { NavigationCard } from "@/components/ui/NavigationCard";
 import Link from "next/link";
-import { FileText, SearchCode, ArrowLeft } from "lucide-react";
+import { MsIcon } from "@/components/ui/MsIcon";
 
 export default function ServicosPage() {
   return (
@@ -13,7 +13,7 @@ export default function ServicosPage() {
             href="/"
             className="text-[#009a4d] hover:text-[#008141] flex items-center gap-2 font-medium transition-colors"
           >
-            <ArrowLeft size={20} /> Voltar para o Início
+            <MsIcon name="arrow_back" size={20} /> Voltar para o Início
           </Link>
         </div>
         <div className="text-center mb-16 mt-8">
@@ -30,7 +30,7 @@ export default function ServicosPage() {
             href="/categorizacao"
             title="Quero categorizar meus dados para compartilhar"
             description="Preencha a Ficha de Categorização para classificar os dados que seu órgão irá compartilhar pela plataforma de interoperabilidade."
-            icon={FileText}
+            icon="description"
             accentColor="emerald"
             ctaLabel="Iniciar Categorização"
           />
@@ -38,7 +38,7 @@ export default function ServicosPage() {
             href="/solicitacao"
             title="Quero solicitar dados de outro órgão"
             description="Preencha a Ficha de Solicitação para pedir API's que outro órgão irá disponibilizar pela plataforma de interoperabilidade."
-            icon={SearchCode}
+            icon="manage_search"
             accentColor="orange"
             ctaLabel="Nova Solicitação"
           />
